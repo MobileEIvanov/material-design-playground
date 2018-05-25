@@ -10,5 +10,9 @@
     <dimen name="article_card_height">200dp</dimen>
     <dimen name="list_title_font_size">18sp</dimen>
     <dimen name="list_sub_title_font_size">16sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="header_image_margin">16dp</dimen>
+    <dimen name="list_top_padding">8dp</dimen>
 
 </resources>

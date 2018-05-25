@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.data.UpdaterService;
+import com.example.xyzreader.databinding.ActivityArticleListBinding;
 import com.example.xyzreader.presentation.article_details.ArticleDetailActivity;
 import com.example.xyzreader.utils.DynamicHeightNetworkImageView;
 
@@ -42,17 +46,37 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
     private RecyclerView mRecyclerView;
 
 
+    ActivityArticleListBinding mBinding;
+    private AppBarLayout.OnOffsetChangedListener mCollapsingToolbarListener = new AppBarLayout.OnOffsetChangedListener() {
+        @Override
+        public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+
+            if (Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0) {
+                // Collapsed
+                mBinding.collapsingToolbar.setTitle(getString(R.string.app_name));
+                mBinding.collapsingToolbar.setBackground(getDrawable(R.drawable.header_expanded_gradient));
+                mBinding.toolbar.setBackground(getDrawable(R.drawable.header_expanded_gradient));
+                mBinding.collapsingToolbar.setCollapsedTitleGravity(Gravity.CENTER_HORIZONTAL);
+
+            } else {
+                //Expanded
+                mBinding.collapsingToolbar.setTitle("");
+
+                mBinding.toolbar.setBackground(null);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_article_list);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_article_list);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mBinding.appBar.addOnOffsetChangedListener(mCollapsingToolbarListener);
 
-
-        final View toolbarContainerView = findViewById(R.id.toolbar_container);
-
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+//        final View toolbarContainerView = findViewById(R.id.toolbar_container);
+//
+//        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         getLoaderManager().initLoader(0, null, this);
@@ -86,7 +110,7 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
         public void onReceive(Context context, Intent intent) {
             if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
                 mIsRefreshing = intent.getBooleanExtra(UpdaterService.EXTRA_REFRESHING, false);
-                updateRefreshingUI();
+//                updateRefreshingUI();
             }
         }
     };
