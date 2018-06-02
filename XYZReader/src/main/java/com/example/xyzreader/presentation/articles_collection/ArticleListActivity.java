@@ -1,15 +1,15 @@
 package com.example.xyzreader.presentation.articles_collection;
 
-import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.Loader;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import android.support.v7.app.AppCompatActivity;
@@ -41,10 +41,6 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = ArticleListActivity.class.toString();
-    private Toolbar mToolbar;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private RecyclerView mRecyclerView;
-
 
     ActivityArticleListBinding mBinding;
     private AppBarLayout.OnOffsetChangedListener mCollapsingToolbarListener = new AppBarLayout.OnOffsetChangedListener() {
@@ -74,12 +70,8 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
 
         mBinding.appBar.addOnOffsetChangedListener(mCollapsingToolbarListener);
 
-//        final View toolbarContainerView = findViewById(R.id.toolbar_container);
-//
-//        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        getLoaderManager().initLoader(0, null, this);
+        getSupportLoaderManager().initLoader(0, null, this);
 
         if (savedInstanceState == null) {
             refresh();
@@ -110,13 +102,14 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
         public void onReceive(Context context, Intent intent) {
             if (UpdaterService.BROADCAST_ACTION_STATE_CHANGE.equals(intent.getAction())) {
                 mIsRefreshing = intent.getBooleanExtra(UpdaterService.EXTRA_REFRESHING, false);
-//                updateRefreshingUI();
+                updateRefreshingUI();
             }
         }
     };
 
     private void updateRefreshingUI() {
-        mSwipeRefreshLayout.setRefreshing(mIsRefreshing);
+        mBinding.swipeToRefresh.setRefreshing(mIsRefreshing);
+        mBinding.swipeToRefresh.setRefreshing(false);
     }
 
     @Override
@@ -128,16 +121,12 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         AdapterArticles adapter = new AdapterArticles(this, cursor, this);
         adapter.setHasStableIds(true);
-        mRecyclerView.setAdapter(adapter);
-        int columnCount = getResources().getInteger(R.integer.list_column_count);
-        StaggeredGridLayoutManager sglm =
-                new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(sglm);
+        mBinding.recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mRecyclerView.setAdapter(null);
+        mBinding.recyclerView.setAdapter(null);
     }
 
 

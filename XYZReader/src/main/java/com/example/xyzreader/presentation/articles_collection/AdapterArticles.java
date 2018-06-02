@@ -21,6 +21,7 @@ import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ItemsContract;
 import com.example.xyzreader.databinding.ListItemArticleBinding;
 import com.example.xyzreader.utils.DynamicHeightNetworkImageView;
+import com.example.xyzreader.utils.ImageLoader;
 import com.example.xyzreader.utils.ImageLoaderHelper;
 import com.example.xyzreader.utils.UtilsDate;
 import com.squareup.picasso.Callback;
@@ -123,26 +124,7 @@ class AdapterArticles extends RecyclerView.Adapter<AdapterArticles.ViewHolder> {
             String thumbUrl = cursor.getString(ArticleLoader.Query.THUMB_URL);
 
             if (!TextUtils.isEmpty(thumbUrl)) {
-                final Uri uri = Uri.parse(thumbUrl);
-                Picasso.with(mContext)
-                        .load(uri)
-                        .networkPolicy(NetworkPolicy.OFFLINE)
-                        .placeholder(R.color.primary_light)
-                        .error(R.drawable.empty_detail)
-                        .noFade()
-                        .into(mBinding.thumbnail, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                            }
-
-                            @Override
-                            public void onError() {
-                                Picasso.with(mContext)
-                                        .load(uri)
-                                        .error(android.R.drawable.stat_notify_error)
-                                        .into(mBinding.thumbnail);
-                            }
-                        });
+                ImageLoader.loadImage(mContext, thumbUrl, mBinding.thumbnail);
             }
 
         }

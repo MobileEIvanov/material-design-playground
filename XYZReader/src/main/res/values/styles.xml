@@ -23,4 +23,14 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="ArticleBodyText">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:textSize">@dimen/article_body_text_size</item>
+        <item name="android:padding">@dimen/article_body_text_padding</item>
+        <item name="android:lineSpacingMultiplier">@fraction/detail_body_line_spacing_multiplier</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
 </resources>
