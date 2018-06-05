@@ -100,5 +100,8 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="shared_element_image">Shared Image</string>
+    <string name="text_share_message">Some sample text</string>
+    <string name="label_by">by</string>
 
 </resources>

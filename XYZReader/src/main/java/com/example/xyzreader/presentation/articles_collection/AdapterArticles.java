@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -104,22 +106,22 @@ class AdapterArticles extends RecyclerView.Adapter<AdapterArticles.ViewHolder> {
             String publishDate = cursor.getString(ArticleLoader.Query.PUBLISHED_DATE);
             if (!TextUtils.isEmpty(publishDate)) {
                 Date date = UtilsDate.parsePublishedDate(publishDate);
-
+                SpannableStringBuilder articleSubtitle = new SpannableStringBuilder();
                 if (!date.before(UtilsDate.START_OF_EPOCH.getTime())) {
-
-                    mBinding.articleSubtitle.setText(Html.fromHtml(
-                            DateUtils.getRelativeTimeSpanString(
-                                    date.getTime(),
-                                    System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
-                                    DateUtils.FORMAT_ABBREV_ALL).toString()
-                                    + "<br/>" + " by "
-                                    + cursor.getString(ArticleLoader.Query.AUTHOR)));
+                    articleSubtitle.append(DateUtils.getRelativeTimeSpanString(
+                            date.getTime(),
+                            System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
+                            DateUtils.FORMAT_ABBREV_ALL).toString());
                 } else {
-                    mBinding.articleSubtitle.setText(Html.fromHtml(
-                            UtilsDate.outputFormat.format(date)
-                                    + "<br/>" + " by "
-                                    + cursor.getString(ArticleLoader.Query.AUTHOR)));
+                    articleSubtitle.append(UtilsDate.outputFormat.format(date));
+
                 }
+
+                articleSubtitle.append("\n");
+                articleSubtitle.append("by");
+                articleSubtitle.append("\t");
+                articleSubtitle.append(cursor.getString(ArticleLoader.Query.AUTHOR));
+                mBinding.articleSubtitle.setText(articleSubtitle.toString());
             }
             String thumbUrl = cursor.getString(ArticleLoader.Query.THUMB_URL);
 

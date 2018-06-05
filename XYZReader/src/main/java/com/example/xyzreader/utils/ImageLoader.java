@@ -21,7 +21,7 @@ public class ImageLoader {
         Uri uri = Uri.parse(url);
         Picasso.with(context)
                 .load(uri)
-                .networkPolicy(NetworkPolicy.OFFLINE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
 //                .placeholder(ContextCompat.getColor(context, R.color.primary))
 //                .error(ContextCompat.getDrawable(context, R.drawable.logo))
                 .noFade()

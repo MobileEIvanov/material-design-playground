@@ -48,12 +48,6 @@
             android:authorities="com.example.xyzreader"
             android:exported="false" />
 
-        <activity
-            android:name=".presentation.articles_collection.ActivityArticlesCollection"
-            android:label="@string/title_activity_articles_collection" />
-        <activity
-            android:name=".presentation.articles_collection.ScrollingActivity"
-            android:label="@string/title_activity_scrolling"></activity>
     </application>
 
 </manifest>

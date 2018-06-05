@@ -10,4 +10,6 @@
     <dimen name="header_image_margin">16dp</dimen>
     <dimen name="article_body_text_size">18sp</dimen>
     <dimen name="article_body_text_padding">16dp</dimen>
+    <dimen name="article_header_height">200dp</dimen>
+    <dimen name="elevation_toolbar">16dp</dimen>
 </resources>
