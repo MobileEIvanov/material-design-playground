@@ -14,9 +14,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.transition.TransitionInflater;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
@@ -33,6 +35,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
 import com.example.xyzreader.data.ArticleModel;
@@ -41,8 +45,14 @@ import com.example.xyzreader.databinding.FragmentArticleDetailBinding;
 import com.example.xyzreader.presentation.articles_collection.ArticleListActivity;
 import com.example.xyzreader.utils.ImageLoader;
 import com.example.xyzreader.utils.UtilsDate;
+import com.example.xyzreader.utils.UtilsTransitions;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
+
+import static android.os.Build.*;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
@@ -103,9 +113,25 @@ public class ArticleDetailFragment extends Fragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        postponeEnterTransition();
+        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+//            setEnterTransition(TransitionInflater
+//                    .from(getContext())
+//                    .inflateTransition(android.R.transition.slide_right));
+            setSharedElementEnterTransition(TransitionInflater.from(getContext())
+                    .inflateTransition(android.R.transition.move));
+        }
+
+        setExitTransition(null);
         if (getArguments().containsKey(ArticleModel.DATA)) {
             mArticle = getArguments().getParcelable(ArticleModel.DATA);
         }
@@ -142,9 +168,7 @@ public class ArticleDetailFragment extends Fragment {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_article_detail, container, false);
         mBinding.appBar.addOnOffsetChangedListener(mCollapsingToolbarListener);
         mBinding.fabShare.setOnClickListener(mShareListener);
-
         bindViews();
-//        updateStatusBar();
         return mBinding.getRoot();
     }
 
@@ -156,7 +180,6 @@ public class ArticleDetailFragment extends Fragment {
 
 
         // TODO: 5/26/18 Move to method based on videos
-//        mBinding.articleBody.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         mBinding.headerArticle.articleTitle.setText(mArticle.getTitle());
 
@@ -172,7 +195,6 @@ public class ArticleDetailFragment extends Fragment {
                         DateUtils.FORMAT_ABBREV_ALL).toString());
             } else {
                 articleSubtitle.append(UtilsDate.outputFormat.format(date));
-
             }
 
             articleSubtitle.append("\n");
@@ -184,14 +206,15 @@ public class ArticleDetailFragment extends Fragment {
 
 
         if (!TextUtils.isEmpty(mArticle.getBody())) {
-            mBinding.articleBody.setText(mArticle.getBody());
+            mBinding.articleBody.setText(mArticle.getBody().substring(0, 1000));
         }
-        ImageLoader.loadImage(getActivity(), mArticle.getThumbUrl(), mBinding.headerArticle.thumbnail);
-        // TODO: 6/2/18 Create a color palette based on the image
-        //            Palette p = Palette.generate(bitmap, 12);
-//            mMutedColor = p.getDarkMutedColor(0xFF333333);
 
+        ImageLoader.loadImage(getActivity(), mArticle.getThumbUrl(), mBinding.headerArticle.thumbnail);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
 
+    }
 }

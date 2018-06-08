@@ -15,8 +15,7 @@
             android:layout_height="@dimen/article_header_height"
             android:background="@drawable/header_expanded_gradient"
             android:fitsSystemWindows="true"
-
-            app:elevation="36dp">
+            app:elevation="@dimen/elevation_toolbar">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
@@ -46,24 +45,42 @@
             android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/card_color"
+            android:elevation="@dimen/elevation_container"
             android:nestedScrollingEnabled="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/details_content_horizontal"
+                android:background="@color/window_background"
+                android:elevation="@dimen/elevation_card_item">
 
-            <TextView
-                android:id="@+id/article_body"
-                style="@style/ArticleBodyText"
-                tools:text="Large text description to show the actual content of the article details and all of its features and stuff" />
+                <TextView
+                    android:id="@+id/article_body"
+                    style="@style/ArticleBodyText"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Large text description to show the actual content of the article details and all of its features and stuff" />
+            </android.support.constraint.ConstraintLayout>
         </ScrollView>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
             android:src="@drawable/ic_share"
             app:elevation="@dimen/fab_elevation"
+            app:layout_anchor="@id/appBar"
+            app:layout_anchorGravity="end|bottom"
             app:pressedTranslationZ="@dimen/fab_press_translation_z" />
     </android.support.design.widget.CoordinatorLayout>
 </layout>

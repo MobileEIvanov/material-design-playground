@@ -15,7 +15,7 @@
             android:layout_height="@dimen/app_bar_height"
             android:background="@drawable/header_expanded_gradient"
             android:fitsSystemWindows="true"
-            app:elevation="36dp">
+            app:elevation="@dimen/elevation_toolbar">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
@@ -40,6 +40,7 @@
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
+                    app:titleTextAppearance="@style/ToolbarTitle"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin" />
             </android.support.design.widget.CollapsingToolbarLayout>
@@ -49,6 +50,8 @@
             android:id="@+id/swipeToRefresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/list_content_horizontal"
+            android:layout_marginEnd="@dimen/list_content_horizontal"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <android.support.v7.widget.RecyclerView
@@ -56,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="@dimen/list_top_padding"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager"
                 app:spanCount="@integer/list_column_count" />
         </android.support.v4.widget.SwipeRefreshLayout>
     </android.support.design.widget.CoordinatorLayout>

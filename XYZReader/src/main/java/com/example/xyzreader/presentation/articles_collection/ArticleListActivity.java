@@ -1,5 +1,7 @@
 package com.example.xyzreader.presentation.articles_collection;
 
+import android.app.ActivityOptions;
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -57,7 +60,6 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
             } else {
                 //Expanded
                 mBinding.collapsingToolbar.setTitle("");
-
                 mBinding.toolbar.setBackground(null);
             }
         }
@@ -65,11 +67,19 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_article_list);
-
+        postponeEnterTransition();
         mBinding.appBar.addOnOffsetChangedListener(mCollapsingToolbarListener);
 
+        mBinding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mIsRefreshing = true;
+                refresh();
+            }
+        });
 
         getSupportLoaderManager().initLoader(0, null, this);
 
@@ -122,6 +132,7 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
         AdapterArticles adapter = new AdapterArticles(this, cursor, this);
         adapter.setHasStableIds(true);
         mBinding.recyclerView.setAdapter(adapter);
+        startPostponedEnterTransition();
     }
 
     @Override
@@ -129,11 +140,17 @@ public class ArticleListActivity extends AppCompatActivity implements AdapterArt
         mBinding.recyclerView.setAdapter(null);
     }
 
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+        postponeEnterTransition();
+    }
 
     @Override
     public void onArticleSelected(long articleId) {
-        // TODO: 5/25/18 Why use action view ?
+
         startActivity(new Intent(Intent.ACTION_VIEW,
                 ItemsContract.Items.buildItemUri(articleId)));
     }
+
 }

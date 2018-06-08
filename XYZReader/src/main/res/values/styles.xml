@@ -7,30 +7,110 @@
         <item name="android:windowBackground">@color/window_background</item>
     </style>
 
-    <style name="ArticleTitleList">
+    <style name="AppThemeColdStart" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/cold_start_drawable</item>
+    </style>
+
+    <!-- BASE THEME FONTS-->
+    <!--android:fontFamily="sans-serif"           // roboto regular
+android:fontFamily="sans-serif-light"     // roboto light
+android:fontFamily="sans-serif-condensed" // roboto condensed
+android:fontFamily="sans-serif-thin"      // roboto thin (android 4.2)
+android:fontFamily="sans-serif-medium"    // roboto medium (android 5.0)-->
+
+    <style name="textAppearanceHeadline1">
+        <item name="android:textSize">@dimen/H1</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+
+    <style name="textAppearanceHeadline2">
+        <item name="android:textSize">@dimen/H2</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="textAppearanceHeadline3">
+        <item name="android:textSize">@dimen/H3</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="textAppearanceHeadline4">
+        <item name="android:textSize">@dimen/H4</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="textAppearanceHeadline5">
+        <item name="android:textSize">@dimen/H5</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="textAppearanceHeadline6">
+        <item name="android:textSize">@dimen/H6</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="textAppearanceSubtitle1">
+        <item name="android:textSize">@dimen/subtitle1</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="textAppearanceSubtitle2">
+        <item name="android:textSize">@dimen/subtitle2</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="textAppearanceBody1">
+        <item name="android:textSize">@dimen/body1</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="textAppearanceBody2">
+        <item name="android:textSize">@dimen/body2</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="textAppearanceCaption">
+        <item name="android:textSize">@dimen/caption</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="textAppearanceButton">
+        <item name="android:textSize">@dimen/button</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="textAppearanceOverline">
+        <item name="android:textSize">@dimen/overline</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!--END BASE THEME-->
+
+    <style name="ToolbarTitle" parent="textAppearanceHeadline6"></style>
+
+    <style name="ArticleTitleList" parent="textAppearanceHeadline6">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/primary_text_light</item>
-        <item name="android:textSize">@dimen/list_title_font_size</item>
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="ArticleSubTitleList">
+    <style name="ArticleSubTitleList" parent="textAppearanceBody2">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/secondary_text_light</item>
-        <item name="android:textSize">@dimen/list_sub_title_font_size</item>
         <item name="android:ellipsize">end</item>
     </style>
 
-    <style name="ArticleBodyText">
+    <style name="ArticleBodyText" parent="textAppearanceBody1">
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:textColor">@color/secondary_text</item>
-        <item name="android:textSize">@dimen/article_body_text_size</item>
         <item name="android:padding">@dimen/article_body_text_padding</item>
-        <item name="android:gravity">left</item>
-        <item name="android:lineSpacingMultiplier">@fraction/detail_body_line_spacing_multiplier</item>
+        <item name="android:lineSpacingMultiplier">@fraction/detail_body_line_spacing_multiplier
+        </item>
         <item name="android:ellipsize">end</item>
     </style>
 

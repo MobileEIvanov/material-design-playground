@@ -21,7 +21,7 @@ allprojects {
 
     ext {
         androidSupportVersion = "27.1.1"
-        picasso = "2.5.1"
+        picasso = "2.71828"
         okHttp = "3.10.0"
         constraintLayout = "1.1.0"
     }
