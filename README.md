@@ -8,7 +8,7 @@ The project initial work is based on the *Udacity* code which can be found [here
 
 The project has four modules:
 - **data**  - SQLite database with + ContentProviders.
-- **ui**libJokeGenerator"** provides the jokes to the backend
+- **ui** -  Usage of Loaders to retrieve information using ContentProviders. Contains the UI of the application
 - **remote** - Responsible for network requests and synchronization
 
 ### Prerequisites
