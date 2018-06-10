@@ -59,6 +59,5 @@
     <dimen name="elevation_card_item">2dp</dimen>
     <dimen name="elevation_toolbar">4dp</dimen>
     <dimen name="fab_elevation">6dp</dimen>
-    <dimen name="fab_elevation_pressed">8dp</dimen>
 
 </resources>

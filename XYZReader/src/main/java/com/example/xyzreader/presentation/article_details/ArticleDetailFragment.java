@@ -149,17 +149,21 @@ public class ArticleDetailFragment extends Fragment {
 
     private void initToolbar(AppCompatActivity activity) {
 
+
+        activity.setSupportActionBar(mBinding.toolbar);
+//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        mBinding.toolbar.setNavigationIcon(android.support.v7.appcompat.R.drawable.abc_ic_ab_back_material);
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (getActivity() != null) {
                     getActivity().onBackPressed();
                 }
             }
         });
 
-        activity.setSupportActionBar(mBinding.toolbar);
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
